@@ -1,58 +1,80 @@
 #ifndef HEADER_H_INCLUDED
 #define HEADER_H_INCLUDED
-include <iostream>
+#include <iostream>
 
 using namespace std;
+
+const int maxKey = 20;
+
+typedef struct elmKategori *adrKategori;
 typedef struct elmBuku *adrBuku;
-typedef struct elmKey *adrKey;
+typedef string key[maxKey];
+
+struct kategori{
+    string namaKat;
+};
+
 struct buku{
     string kode;
     string judul;
     string pengarang;
     int tahun;
-    string kategori;
+    key katakunci;
+    int hlm;
 };
-struct KeyWord{
-    string key;
+
+struct elmKategori{
+    kategori info;
+    adrKategori next;
+    adrKategori prev;
+    adrBuku firstBuku;
 };
+
 struct elmBuku{
     buku info;
     adrBuku next;
     adrBuku prev;
-    adrKey firstKeyword;
-};
-struct elmKey{
-    KataKunci info;
-    adrKey next;
-    adrKey prev;
-};
-struct listBuku{
-    adrBuku first;
-    adrBuku last;
 };
 
-void createListBuku(listBuku &L);
-bool isEmptyBuku(listBuku L);
-bool isEmptyKey(adrBuku p);
-adrBuku createElementBuku(string kode, string judul, string pengarang, int tahun, string kategori);
-adrKey createElementKey(string key);
+struct listKategori{
+    adrKategori first;
+    adrKategori last;
+};
 
-// pake insert last
-void addBuku(listBuku &L, adrBuku p);
-void addKey(adrBuku &p, adrKey q);
+void createListKategori(listKategori &L);
 
-deleteBuku();
-deleteKey();
+bool isEmptyKategori(listKategori L);
+bool isEmptyBuku(adrKategori k);
 
-adrBuku searchBukuJudul(listBuku L, string judul);
-adrBuku searchBukuPengarang(listBuku L, string pengarang);
-adrBuku searchBukuKategori(listBuku L, string kategori);
-adrBuku searchBukuKey();
+adrKategori createElmKategori(string nama);
+adrBuku createElmBuku(string kode, string judul, string pengarang, int tahun, key katakunci, int hlm);
 
-int jmlBukuPerKategori(listBuku L);
-adrBuku displayBukuTahunLamaDanBaru(listBuku L);
-adrBuku displayBukuKey(listBuku L, string key);
+void addKategori(listKategori &L, adrKategori k);
+void addBuku(adrKategori &k, adrBuku p);
 
-void displayListBuku(listBuku L);
+adrKategori searchKategori(listKategori L, string kategori);
+adrBuku searchBukuJudul(listKategori L, string judul);
+adrBuku searchBukuPengarang(listKategori L, string pengarang);
+void searchBukuKeyword(listKategori L, string keyword);
+adrBuku searchBukuTahun(listKategori L, int tahun);
+adrBuku searchBukuKode(listKategori L, string kode);
+
+void updateBook(listKategori &L);
+void updateCategory(listKategori &L);
+
+void displayDetailBuku(adrBuku p);
+void displayList(listKategori L);
+
+//menu
+void deleteKategori(listKategori &L);
+void deleteBuku(listKategori &L);
+
+void formAddCategory(listKategori &L);
+void formAddBook(listKategori &L);
+void formSearchBook(listKategori L);
+void formCountBooksByCategory(listKategori K);
+void formShowBooksByPublicationYear(listKategori L);
+void formShowAvgPagesByCategory(listKategori L);
+void formUpdateList(listKategori &L);
 
 #endif // HEADER_H_INCLUDED
