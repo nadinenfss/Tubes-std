@@ -549,7 +549,7 @@ void updateBook(listKategori &L){
         } else if (angka == 2) {
             cout << "Insert new author: ";
             cin >> p->info.pengarang;
-            cout << "Title updated successfully!" << endl;
+            cout << "Author updated successfully!" << endl;
         } else if (angka == 3) {
             cout << "Insert new year published: ";
             cin >> p->info.tahun;
